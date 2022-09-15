@@ -1,10 +1,11 @@
 const boom = require('@hapi/boom');
 const ProjectModel = require('../database/models/Project');
+const {sucessResponse} = require('../middlewares/response.middlewares');
 
 const getProjects = async(req, res, next) => {
     try{
         const projects = await ProjectModel.findAll();
-        res.json(projects);
+        sucessResponse(req, res, projects, 'Lista de proyectos', 200);
     }catch(error){
         next(error);
     }
@@ -17,7 +18,7 @@ const getOneProject = async(req, res, next) => {
         if(!product){
             throw boom.notFound('El proyecto no existe');
         }
-        res.json(product);
+        sucessResponse(req, res, product, 'Proyecto encontrado', 200);
     }catch(error){
         next(error);
     }
@@ -31,7 +32,7 @@ const createProject = async(req, res, next) => {
             description,
             priority,
         })
-        res.json(newProject);
+        sucessResponse(req, res, newProject, 'Proyecto creado', 201);
     }catch(error){
         next(error);
     }
@@ -55,8 +56,7 @@ const updateProject = async(req, res, next) => {
             project.priority = priority;
         }
         await project.save();
-        res.json(project);
-
+        sucessResponse(req, res, project, 'Proyecto actualizado', 200);
     }catch(error){
         next(error);
     }
@@ -65,12 +65,12 @@ const updateProject = async(req, res, next) => {
 const deleteProject = async(req, res, next) => {
     try{
         const {id} = req.params;
-        const project = await ProjectModel.destroy({where: {id}});
+        const project = await ProjectModel.findByPk(id);
+        await ProjectModel.destroy({where: {id}});
         if(!project){
             throw boom.notFound('El proyecto no existe');
         }
-        res.json('El proyecto fue eliminado');
-
+        sucessResponse(req, res, project, 'Proyecto eliminado', 200);
     }catch(error){
         next(error);
 
