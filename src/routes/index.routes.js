@@ -9,6 +9,10 @@ const routerAPI = (app) => {
         routerV1.use('/projects', projectRoutes);
         routerV1.use('/task', taskRoutes);
 
+    app.all('*', (req, res, next) => {
+        next(boom.notFound('La ruta no existe'));
+    })
+
 }
 
 module.exports = routerAPI;
