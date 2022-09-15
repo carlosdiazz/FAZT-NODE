@@ -1,9 +1,9 @@
 const {Router} = require('express');
-const {createTask, deleteTask, getOneTask, getTask, updateTask} = require('../services/task.services');
+const {createTask, deleteTask, getOneTask, getTask, updateTask} = require('../services/task.service');
 
 const validar = require('../middlewares/validar.middlewares');
 
-//const {createProjectSchema} = require('../schemas/project.schemas');
+const  {createTaskSchema, deleteTaskSchema, getTaskSchema, updateTaskSchema} = require('../schemas/task.schemas');
 
 
 const taksRouter = Router();
@@ -13,20 +13,24 @@ taksRouter.get('/',
 );
 
 taksRouter.get('/:id',
+    validar(getTaskSchema, 'params'),
     getOneTask
 );
 
 taksRouter.post('/',
-    //validar(createProjectSchema,'body'),
+    validar(createTaskSchema,'body'),
     createTask
 );
 
 taksRouter.put('/:id',
-    deleteTask
+    validar(getTaskSchema, 'params'),
+    validar(updateTaskSchema, 'bofy'),
+    updateTask
 );
 
 taksRouter.delete('/:id',
-    updateTask
+    validar(deleteTaskSchema, 'params'),
+    deleteTask
 );
 
 
