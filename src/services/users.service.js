@@ -27,9 +27,9 @@ const getUser = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
     try{
-        const {first_name, last_name, email, password, birth_date, phone, is_staff, nick_name} = req.body
+        const {first_name, last_name, email, password, birth_date, phone, is_staff, nick_name, role} = req.body
         const hash = await bcrypt.hash(password, 10)
-        const user = await UserModel.create({first_name, last_name, email, birth_date, phone, is_staff,nick_name, password: hash})
+        const user = await UserModel.create({first_name, last_name, email, birth_date, phone, is_staff,nick_name, role, password: hash})
         delete user.dataValues.password
         sucessResponse(req, res, user, 'User creado', 201);
 
@@ -41,7 +41,7 @@ const createUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
     try{
         const {id} = req.params;
-        const {first_name, last_name, email, password, birth_date, phone, is_staff, is_active} = req.body
+        const {first_name, last_name, email, password, birth_date, phone, is_staff, is_active, role} = req.body
         const user = await UserModel.findByPk(id);
 
         if(!user){
@@ -55,6 +55,7 @@ const updateUser = async (req, res, next) => {
         if(phone){user.phone=phone}
         if(is_staff){user.is_staff=is_staff}
         if(is_active){user.is_active=is_active}
+        if(role){user.role=role}
         await user.save();
         sucessResponse(req, res, user, 'Usuario actualizada', 200);
     }catch (error){

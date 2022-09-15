@@ -8,6 +8,7 @@ const config = {
     dbHost: process.env.DB_HOST || '',                                      // HOST DE LA BASE DE DATOS
     dbPort: process.env.DB_PORT || '',                                      // PUERTO DE LA BASE DE DATOS
     API_KEY: process.env.API_KEY || '',                                     // API KEY PARA AUTENTICACION
+    JWT_SECRET: process.env.JWT_SECRET || '',                           // TOKEN SECRET PARA AUTENTICACION
 
 }
 
@@ -18,6 +19,7 @@ module.exports = {
     DB_NAME: config.dbName,
     DB_HOST: config.dbHost,
     DB_PORT: config.dbPort,
-    API_KEY: config.API_KEY
+    API_KEY: config.API_KEY,
+    JWT_SECRET: config.JWT_SECRET
 
 };
