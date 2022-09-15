@@ -4,7 +4,7 @@ const cors = require('cors');
 const {boomErrorHandler, errorHandler} = require('../middlewares/error.middlewares')
 const {checkAuth} = require('../middlewares/auth.middlewares');
 const {sucessResponse} = require('../middlewares/response.middlewares');
-
+const passport = require('passport')
 
 // Inicializaciones de express
 const app = express();
@@ -21,6 +21,11 @@ app.get('/admin', checkAuth, (req, res) => {
 // Configuraciones y Middlewares
 app.use(express.json());
 app.use(cors());
+
+//
+app.use(passport.initialize({ session: false }));
+require('../utils/auth');
+
 
 // Autenticacion
 app.use(checkAuth);

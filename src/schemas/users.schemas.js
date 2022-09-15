@@ -9,6 +9,7 @@ const birth_date = Joi.date();
 const phone = Joi.number()
 const is_active = Joi.boolean();
 const is_staff = Joi.boolean();
+const nick_name = Joi.string().min(3).max(30);
 
 const createUserSchema = Joi.object().keys({
     first_name: first_name.required(),
@@ -17,7 +18,8 @@ const createUserSchema = Joi.object().keys({
     password: password.required(),
     birth_date: birth_date.required(),
     phone: phone.required(),
-    is_staff: is_staff.required()
+    is_staff: is_staff.required(),
+    nick_name: nick_name.required(),
 })
 
 const getUserSchema = Joi.object().keys({
@@ -32,7 +34,8 @@ const updateUserSchema = Joi.object().keys({
     birth_date: birth_date,
     phone: phone,
     is_staff: is_staff,
-    is_active: is_active
+    is_active: is_active,
+    nick_name: nick_name,
 })
 
 const deleteUserSchema = Joi.object().keys({
