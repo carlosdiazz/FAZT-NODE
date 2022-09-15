@@ -3,6 +3,7 @@ const app = require('./src/app/app');
 const sequelize = require('./src/database/database');
 const ProjectModel = require('./src/database/models/Project');                       // CREA LAS TABLAS EN LA BASE DE DATOS
 const TaskModel = require('./src/database/models/Task');                               // CREA LAS TABLAS EN LA BASE DE DATOS
+const UserModel = require('./src/database/models/User');                               // CREA LAS TABLAS EN LA BASE DE DATOS
 
 const main = async () => {
 
