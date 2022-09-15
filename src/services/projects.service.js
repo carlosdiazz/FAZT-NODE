@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const ProjectModel = require('../database/models/Project');
+const TaskModel = require('../database/models/Task');
 const {sucessResponse} = require('../middlewares/response.middlewares');
 
 const getProjects = async(req, res, next) => {
@@ -77,10 +78,22 @@ const deleteProject = async(req, res, next) => {
     }
 }
 
+const getProjectTasks = async(req, res, next) => {
+    try{
+        const { id } = req.params;
+        const tareas = await TaskModel.findAll({where: {projectId: id}})
+        sucessResponse(req, res, tareas, 'Tareas del proyecto', 200);
+
+    }catch(error){
+        next(error);
+    }
+}
+
 module.exports = {
     getProjects,
     getOneProject,
     createProject,
     updateProject,
     deleteProject,
+    getProjectTasks
 }
