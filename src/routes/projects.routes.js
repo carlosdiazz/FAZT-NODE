@@ -3,15 +3,18 @@ const {createProject, deleteProject, getOneProject, getProjects, updateProject} 
 
 const validar = require('../middlewares/validar.middlewares');
 
-const {createProjectSchema} = require('../schemas/project.schemas');
+const {createProjectSchema, deleteProjectSchema, updateProjectSchema, getOneProjectSchema} = require('../schemas/project.schemas');
 
 
 const projectsRouter = Router();
 
-projectsRouter.get('/',getProjects);
+projectsRouter.get('/',
+    getProjects
+);
 
 projectsRouter.get('/:id',
-getOneProject
+    validar(getOneProjectSchema, 'params'),
+    getOneProject
 );
 
 projectsRouter.post('/',
@@ -20,11 +23,14 @@ projectsRouter.post('/',
 );
 
 projectsRouter.put('/:id',
-updateProject
+    validar(getOneProjectSchema,'params'),
+    validar(updateProjectSchema,'body'),
+    updateProject
 );
 
 projectsRouter.delete('/:id',
-deleteProject
+    validar(deleteProjectSchema,'params'),
+    deleteProject
 );
 
 
