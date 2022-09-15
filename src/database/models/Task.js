@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize');
-const sequelize = require('../database/database');
+const sequelize = require('../database');
 
-const ProjectModel = sequelize.define('Project', {
+const TaskModel = sequelize.define('Task', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -15,10 +15,13 @@ const ProjectModel = sequelize.define('Project', {
         type: DataTypes.TEXT,
         allowNull: false,
     },
-    priority: {
-        type: DataTypes.INTEGER,
+    done: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false,
     },
+},{
+    timestamps: false,
 });
 
-module.exports = ProjectModel;
+module.exports = TaskModel;
