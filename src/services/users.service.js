@@ -3,6 +3,7 @@ const {sucessResponse} = require('../middlewares/response.middlewares');
 const UserModel = require('../database/models/User');
 const bcrypt = require('bcrypt')
 
+
 const getUsersAll = async (req, res, next) => {
     try{
         const users = await UserModel.findAll();

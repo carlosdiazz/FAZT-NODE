@@ -1,6 +1,11 @@
 // @ts-check
 // Aqui pasaremos los middlewares que voy a usar para controlar los errorres
 
+const logErrors = (err, req, res, next) => {
+    console.log(err);
+    next(err);
+  }
+
 const boomErrorHandler = (err, req, res, next) => {
 
     if(err.isBoom){
@@ -36,6 +41,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
 module.exports = {
+    logErrors,
     errorHandler,
     boomErrorHandler
 };

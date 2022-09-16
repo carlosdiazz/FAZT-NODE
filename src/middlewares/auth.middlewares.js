@@ -10,6 +10,16 @@ const checkAuth = (req, res, next) => {
     }
 };
 
+const checkAdmin = (req, res, next) => {
+    const {role} = req.user;
+    if(role === 'admin'){
+        next();
+    }else{
+        next(boom.unauthorized('No tienes permisos para realizar esta accion'));
+    }
+};
+
 module.exports = {
-    checkAuth
+    checkAuth,
+    checkAdmin
 };
