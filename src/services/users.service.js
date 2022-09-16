@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 
 const getUsersAll = async (req, res, next) => {
     try{
-        const users = await UserModel.findAll();
+        const users = await UserModel.findAll( {attributes: {exclude: ['password']}} );
         sucessResponse(req, res, users, 'Lista de usuarios');
     }catch (error){
         next(error);
@@ -20,6 +20,7 @@ const getUser = async (req, res, next) => {
         if(!user){
             throw boom.notFound('El usuario no existe');
         }
+        delete (user.dataValues.password)
         sucessResponse(req, res, user, 'Usuario encontrado', 200);
     }catch (error){
         next(error);

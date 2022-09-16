@@ -19,7 +19,20 @@ const checkAdmin = (req, res, next) => {
     }
 };
 
+//Con esta funcion vamos a vlaidar que tenga el rol
+const checkRoles = (...roles) => {
+    return (req, res, next) => {
+        const {role} = req.user;
+        if(roles.includes(role)){
+            next();
+        }else{
+            next(boom.unauthorized('No tienes permisos para realizar esta accion'));
+        }
+    }
+};
+
 module.exports = {
     checkAuth,
-    checkAdmin
+    checkAdmin,
+    checkRoles
 };
